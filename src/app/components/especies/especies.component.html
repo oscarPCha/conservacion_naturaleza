@@ -1,0 +1,139 @@
+
+    <h2 mat-dialog-title>
+      <mat-icon>{{ data ? 'edit' : 'add' }}</mat-icon>
+      {{ data ? 'Editar' : 'Agregar' }} Especie
+    </h2>
+
+    <mat-dialog-content>
+      <form [formGroup]="speciesForm" class="species-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre común</mat-label>
+            <input matInput formControlName="name" placeholder="Ej: Oso de Anteojos">
+            <mat-error *ngIf="speciesForm.get('name')?.hasError('required')">
+              El nombre es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre científico</mat-label>
+            <input matInput formControlName="scientificName" placeholder="Ej: Tremarctos ornatus">
+            <mat-error *ngIf="speciesForm.get('scientificName')?.hasError('required')">
+              El nombre científico es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Estado de conservación</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="Extinto">Extinto</mat-option>
+              <mat-option value="En Peligro Crítico">En Peligro Crítico</mat-option>
+              <mat-option value="En Peligro">En Peligro</mat-option>
+              <mat-option value="Vulnerable">Vulnerable</mat-option>
+              <mat-option value="Casi Amenazado">Casi Amenazado</mat-option>
+              <mat-option value="Preocupación Menor">Preocupación Menor</mat-option>
+            </mat-select>
+            <mat-error *ngIf="speciesForm.get('status')?.hasError('required')">
+              El estado es requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Región</mat-label>
+            <mat-select formControlName="region">
+              <mat-option value="Amazonía">Amazonía</mat-option>
+              <mat-option value="Andes">Andes</mat-option>
+              <mat-option value="Costa">Costa</mat-option>
+              <mat-option value="Todas">Todas las regiones</mat-option>
+            </mat-select>
+            <mat-error *ngIf="speciesForm.get('region')?.hasError('required')">
+              La región es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" rows="4"
+                      placeholder="Descripción detallada de la especie..."></textarea>
+            <mat-error *ngIf="speciesForm.get('description')?.hasError('required')">
+              La descripción es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Hábitat</mat-label>
+            <input matInput formControlName="habitat"
+                   placeholder="Ej: Bosques andinos, páramos">
+            <mat-error *ngIf="speciesForm.get('habitat')?.hasError('required')">
+              El hábitat es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Población estimada</mat-label>
+            <input matInput type="number" formControlName="population"
+                   placeholder="Número de individuos">
+            <mat-error *ngIf="speciesForm.get('population')?.hasError('required')">
+              La población es requerida
+            </mat-error>
+            <mat-error *ngIf="speciesForm.get('population')?.hasError('min')">
+              La población debe ser mayor a 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>URL de imagen</mat-label>
+            <input matInput formControlName="imageUrl"
+                   placeholder="https://ejemplo.com/imagen.jpg">
+            <mat-error *ngIf="speciesForm.get('imageUrl')?.hasError('required')">
+              La URL de imagen es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <h3>Amenazas principales</h3>
+          <div class="threats-container">
+            <div formArrayName="threats">
+              <div *ngFor="let threat of threatsArray.controls; let i = index" class="threat-item">
+                <mat-form-field appearance="outline" class="threat-input">
+                  <mat-label>Amenaza {{ i + 1 }}</mat-label>
+                  <input matInput [formControlName]="i" placeholder="Ej: Deforestación">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button" (click)="removeThreat(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <button mat-stroked-button type="button" (click)="addThreat()" class="add-threat-btn">
+              <mat-icon>add</mat-icon>
+              Agregar amenaza
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox formControlName="isActive">
+            Mostrar en el sitio web
+          </mat-checkbox>
+        </div>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!speciesForm.valid">
+        <mat-icon>save</mat-icon>
+        {{ data ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </mat-dialog-actions>

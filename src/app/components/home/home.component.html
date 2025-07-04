@@ -1,0 +1,324 @@
+<app-header></app-header>
+<section id="inicio" class="inicio-section">
+  <div class="inicio-content">
+    <h1>Protegemos la Naturaleza del Perú</h1>
+    <p>
+      Únete a nosotros en la conservación de la biodiversidad más rica del
+      planeta. Cada donación hace la diferencia.
+    </p>
+    <button
+      mat-raised-button
+      color="accent"
+      class="inicio-cta"
+      (click)="scrollToSection('donar')"
+    >
+      <mat-icon>favorite</mat-icon>
+      Donar Ahora
+    </button>
+  </div>
+</section>
+
+<!-- Biodiversidad Section -->
+<section id="biodiversidad" class="section-padding">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">Biodiversidad del Perú</h2>
+      <p class="section-subtitle">
+        Perú es uno de los países más biodiversos del mundo, hogar de
+        ecosistemas únicos que necesitan nuestra protección urgente.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of statsList">
+        <div class="stat-header">
+          <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+          <div class="stat-number">{{ stat.value | number }}</div>
+        </div>
+
+        <h3>{{ stat.title }}</h3>
+        <p>{{ stat.description }}</p>
+      </div>
+      <!-- <div class="stat-card">
+            <div class="stat-number">84</div>
+            <h3>Zonas de Vida</h3>
+            <p>De las 117 zonas de vida del mundo</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3,000</div>
+            <h3>Especies de Orquídeas</h3>
+            <p>La mayor diversidad del planeta</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">515</div>
+            <h3>Especies de Mamíferos</h3>
+            <p>Muchas endémicas del país</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1,800</div>
+            <h3>Especies de Aves</h3>
+            <p>10% de todas las aves del mundo</p>
+          </div> -->
+    </div>
+
+    <mat-tab-group class="ecosystem-tabs" *ngIf="ecosystemsList">
+      <ng-container *ngFor="let ecosystem of ecosystemsList">
+        <mat-tab label="{{ ecosystem.name }}">
+          <div class="tab-content">
+            <h3>{{ ecosystem.name }}</h3>
+            <p>
+              {{ecosystem.description}}
+            </p>
+          </div>
+        </mat-tab>
+      </ng-container>
+
+      <!-- <mat-tab label="Amazonía">
+        <div class="tab-content">
+          <h3>Selva Amazónica</h3>
+          <p>
+            La Amazonía peruana representa el 60% del territorio nacional y
+            alberga la mayor diversidad biológica del país. Es hogar de
+            comunidades indígenas que han protegido estos bosques durante
+            milenios.
+          </p>
+        </div>
+      </mat-tab>
+      <mat-tab label="Andes">
+        <div class="tab-content">
+          <h3>Cordillera de los Andes</h3>
+          <p>
+            Los Andes peruanos contienen glaciares tropicales, páramos, bosques
+            nublados y una increíble diversidad de papa nativa. Son
+            fundamentales para el ciclo hidrológico del país.
+          </p>
+        </div>
+      </mat-tab>
+      <mat-tab label="Costa">
+        <div class="tab-content">
+          <h3>Desierto Costero</h3>
+          <p>
+            Aunque árida, la costa peruana tiene ecosistemas únicos como las
+            lomas costeras y humedales que son refugio para aves migratorias y
+            especies endémicas.
+          </p>
+        </div>
+      </mat-tab> -->
+    </mat-tab-group>
+  </div>
+</section>
+
+<!-- Especies en Peligro -->
+<section id="especies" class="section-padding" style="background: #f8f9fa">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">Especies en Peligro</h2>
+      <p class="section-subtitle">
+        Estas especies emblemáticas del Perú necesitan nuestra protección
+        inmediata para evitar su extinción.
+      </p>
+    </div>
+
+    <div class="species-grid">
+      <ng-container *ngFor="let specie of speciesList">
+
+    <mat-card class="species-card">
+        <img
+          mat-card-image
+          src="{{specie.imageUrl}}"
+          alt="{{specie.name}}"
+          class="species-image"
+        />
+        <mat-card-content class="species-content">
+          <h3 class="species-name">{{specie.name}}</h3>
+          <p class="species-status">{{specie.status}}</p>
+          <p>
+            {{specie.description}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+      </ng-container>
+      <!-- <mat-card class="species-card">
+        <img
+          mat-card-image
+          src="https://images.pexels.com/photos/86594/spectacled-bear-andean-bear-tremarctos-ornatus-86594.jpeg"
+          alt="Oso de Anteojos"
+          class="species-image"
+        />
+        <mat-card-content class="species-content">
+          <h3 class="species-name">Oso de Anteojos</h3>
+          <p class="species-status">En Peligro</p>
+          <p>
+            El único oso nativo de Sudamérica, habita en los bosques andinos del
+            Perú. Quedan menos de 20,000 ejemplares.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="species-card">
+        <img
+          mat-card-image
+          src="https://images.pexels.com/photos/33045/lion-wild-africa-african.jpg"
+          alt="Jaguar"
+          class="species-image"
+        />
+        <mat-card-content class="species-content">
+          <h3 class="species-name">Jaguar</h3>
+          <p class="species-status">Casi Amenazado</p>
+          <p>
+            El felino más grande de América, habita en la Amazonía peruana. Su
+            población ha disminuido por la deforestación.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="species-card">
+        <img
+          mat-card-image
+          src="https://images.pexels.com/photos/1059823/pexels-photo-1059823.jpeg"
+          alt="Vicuña"
+          class="species-image"
+        />
+        <mat-card-content class="species-content">
+          <h3 class="species-name">Vicuña</h3>
+          <p class="species-status">Preocupación Menor</p>
+          <p>
+            Gracias a los esfuerzos de conservación, la vicuña se ha recuperado
+            de estar en peligro crítico.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="species-card">
+        <img
+          mat-card-image
+          src="https://images.pexels.com/photos/1459877/pexels-photo-1459877.jpeg"
+          alt="Colibrí Maravilloso"
+          class="species-image"
+        />
+        <mat-card-content class="species-content">
+          <h3 class="species-name">Colibrí Maravilloso</h3>
+          <p class="species-status">En Peligro Crítico</p>
+          <p>
+            Endémico del norte del Perú, es uno de los colibríes más raros del
+            mundo con menos de 1,000 individuos.
+          </p>
+        </mat-card-content>
+      </mat-card> -->
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Donación -->
+<section id="donar" class="section-padding">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">Ayúdanos a Conservar</h2>
+      <p class="section-subtitle">
+        Tu donación nos permite proteger hábitats, investigar especies y educar
+        a las comunidades. Cada sol cuenta para la conservación del Perú.
+      </p>
+    </div>
+
+    <div class="donation-card">
+      <mat-icon
+        style="
+          font-size: 48px;
+          height: 48px;
+          width: 48px;
+          color: var(--primary-green);
+        "
+        >eco</mat-icon
+      >
+      <h3 style="margin: 1rem 0; color: var(--primary-green)">Dona con Yape</h3>
+      <p style="margin-bottom: 1.5rem; color: var(--text-light)">
+        Escanea el código QR con tu app de Yape para realizar tu donación de
+        forma segura y rápida.
+      </p>
+
+      <div class="qr-code">
+        <div style="text-align: center">
+          <mat-icon
+            style="font-size: 64px; height: 64px; width: 64px; color: #ccc"
+            >qr_code</mat-icon
+          >
+          <br />
+          <small>Código QR de Yape</small>
+          <br />
+          <small>943-123-456</small>
+        </div>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 1rem">
+        También puedes yapear directamente al número:
+        <strong>943-123-456</strong>
+      </p>
+
+      <div style="margin-top: 2rem">
+        <h4 style="color: var(--primary-green); margin-bottom: 1rem">
+          ¿Cómo ayuda tu donación?
+        </h4>
+        <div style="text-align: left; max-width: 300px; margin: 0 auto">
+          <p style="margin: 0.5rem 0">
+            <mat-icon
+              style="
+                color: var(--secondary-green);
+                vertical-align: middle;
+                margin-right: 8px;
+              "
+              >park</mat-icon
+            >S/ 20 - Protege 1m² de bosque
+          </p>
+          <p style="margin: 0.5rem 0">
+            <mat-icon
+              style="
+                color: var(--secondary-green);
+                vertical-align: middle;
+                margin-right: 8px;
+              "
+              >pets</mat-icon
+            >S/ 50 - Monitoreo de fauna
+          </p>
+          <p style="margin: 0.5rem 0">
+            <mat-icon
+              style="
+                color: var(--secondary-green);
+                vertical-align: middle;
+                margin-right: 8px;
+              "
+              >school</mat-icon
+            >S/ 100 - Educación ambiental
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem">
+      <h3 style="color: var(--primary-green); margin-bottom: 1rem">
+        Otras formas de ayudar
+      </h3>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+        "
+      >
+        <button mat-stroked-button color="primary">
+          <mat-icon>volunteer_activism</mat-icon>
+          Voluntariado
+        </button>
+        <button mat-stroked-button color="primary">
+          <mat-icon>share</mat-icon>
+          Comparte
+        </button>
+        <button mat-stroked-button color="primary">
+          <mat-icon>mail</mat-icon>
+          Suscríbete
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

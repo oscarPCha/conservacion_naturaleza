@@ -1,0 +1,209 @@
+
+    <mat-toolbar color="primary" class="dashboard-toolbar">
+      <button mat-icon-button (click)="goToPublicSite()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <mat-icon>dashboard</mat-icon>
+      <span class="toolbar-title">Dashboard - Conservación Natural Perú</span>
+      <div class="spacer"></div>
+      <button mat-icon-button (click)="goToPublicSite()">
+        <mat-icon>public</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1>Panel de Administración</h1>
+        <p>Gestiona el contenido de la página web de conservación</p>
+      </div>
+
+      <mat-tab-group class="dashboard-tabs" animationDuration="300ms">
+        <!-- Especies Tab -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>pets</mat-icon>
+            Especies
+            <mat-chip-set>
+              <mat-chip [matBadge]="speciesList.length || 0" matBadgeColor="accent"></mat-chip>
+            </mat-chip-set>
+          </ng-template>
+
+          <div class="tab-content">
+            <div class="section-header">
+              <h2>Especies en Peligro</h2>
+              <button mat-raised-button color="primary" (click)="openSpeciesDialog()">
+                <mat-icon>add</mat-icon>
+                Agregar Especie
+              </button>
+            </div>
+
+            <!-- <div class="species-grid" *ngIf="species$ | async as speciesList"> -->
+            <div class="species-grid" *ngIf="speciesList">
+
+              <mat-card *ngFor="let species of speciesList" class="species-card">
+                <div class="card-header">
+                  <img [src]="species.imageUrl" [alt]="species.name" class="species-image">
+                  <div class="status-badge" [ngClass]="getStatusClass(species.status)">
+                    {{ species.status }}
+                  </div>
+                </div>
+
+                <mat-card-content>
+                  <h3>{{ species.name }}</h3>
+                  <p class="scientific-name">{{ species.scientificName }}</p>
+                  <p class="description">{{ species.description }}</p>
+
+                  <div class="species-details">
+                    <div class="detail-item">
+                      <mat-icon>location_on</mat-icon>
+                      <span>{{ species.region }}</span>
+                    </div>
+                    <div class="detail-item">
+                      <mat-icon>groups</mat-icon>
+                      <span>~{{ species.population | number }} individuos</span>
+                    </div>
+                  </div>
+
+                  <div class="threats-section">
+                    <h4>Amenazas principales:</h4>
+                    <mat-chip-set>
+                      <mat-chip *ngFor="let threat of species.threats">{{ threat }}</mat-chip>
+                    </mat-chip-set>
+                  </div>
+                </mat-card-content>
+
+                <mat-card-actions>
+                  <button mat-button color="primary" (click)="editSpecies(species)">
+                    <mat-icon>edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-button color="warn" (click)="deleteSpecies(species.id)">
+                    <mat-icon>delete</mat-icon>
+                    Eliminar
+                  </button>
+                  <button mat-button (click)="toggleSpeciesStatus(species)">
+                    <mat-icon>{{ species.isActive ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    {{ species.isActive ? 'Ocultar' : 'Mostrar' }}
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Estadísticas Tab -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>analytics</mat-icon>
+            Estadísticas
+            <mat-chip-set>
+              <mat-chip [matBadge]="statsList.length || 0" matBadgeColor="accent"></mat-chip>
+            </mat-chip-set>
+          </ng-template>
+
+          <div class="tab-content">
+            <div class="section-header">
+              <h2>Estadísticas de Biodiversidad</h2>
+              <button mat-raised-button color="primary" (click)="openStatsDialog()">
+                <mat-icon>add</mat-icon>
+                Agregar Estadística
+              </button>
+            </div>
+
+            <div class="stats-grid" *ngIf="statsList">
+              <mat-card *ngFor="let stat of statsList" class="stat-card">
+                <mat-card-content>
+                  <div class="stat-header">
+                    <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+                    <div class="stat-number">{{ stat.value | number }}</div>
+                  </div>
+                  <h3>{{ stat.title }}</h3>
+                  <p>{{ stat.description }}</p>
+                </mat-card-content>
+
+                <mat-card-actions>
+                  <button mat-button color="primary" (click)="editStat(stat)">
+                    <mat-icon>edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-button color="warn" (click)="deleteStat(stat.id)">
+                    <mat-icon>delete</mat-icon>
+                    Eliminar
+                  </button>
+                  <button mat-button (click)="toggleStatStatus(stat)">
+                    <mat-icon>{{ stat.isActive ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    {{ stat.isActive ? 'Ocultar' : 'Mostrar' }}
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </mat-tab>
+
+        <!-- Ecosistemas Tab -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>nature</mat-icon>
+            Ecosistemas
+            <mat-chip-set>
+              <mat-chip [matBadge]="ecosystemList.length || 0" matBadgeColor="accent"></mat-chip>
+            </mat-chip-set>
+          </ng-template>
+
+          <div class="tab-content">
+            <div class="section-header">
+              <h2>Ecosistemas del Perú</h2>
+              <button mat-raised-button color="primary" (click)="openEcosystemDialog()">
+                <mat-icon>add</mat-icon>
+                Agregar Ecosistema
+              </button>
+            </div>
+
+            <div class="ecosystems-list" *ngIf="ecosystemList">
+              <mat-card *ngFor="let ecosystem of ecosystemList" class="ecosystem-card">
+                <mat-card-content>
+                  <h3>{{ ecosystem.name }}</h3>
+                  <p class="ecosystem-description">{{ ecosystem.description }}</p>
+
+                  <div class="ecosystem-section">
+                    <h4><mat-icon>check_circle</mat-icon> Características</h4>
+                    <mat-chip-set>
+                      <mat-chip *ngFor="let char of ecosystem.characteristics">{{ char }}</mat-chip>
+                    </mat-chip-set>
+                  </div>
+
+                  <div class="ecosystem-section">
+                    <h4><mat-icon>warning</mat-icon> Amenazas</h4>
+                    <mat-chip-set>
+                      <mat-chip *ngFor="let threat of ecosystem.threats" color="warn">{{ threat }}</mat-chip>
+                    </mat-chip-set>
+                  </div>
+
+                  <div class="ecosystem-section">
+                    <h4><mat-icon>eco</mat-icon> Esfuerzos de Conservación</h4>
+                    <mat-chip-set>
+                      <mat-chip *ngFor="let effort of ecosystem.conservationEfforts" color="accent">{{ effort }}</mat-chip>
+                    </mat-chip-set>
+                  </div>
+                </mat-card-content>
+
+                <mat-card-actions>
+                  <button mat-button color="primary" (click)="editEcosystem(ecosystem)">
+                    <mat-icon>edit</mat-icon>
+                    Editar
+                  </button>
+                  <button mat-button color="warn" (click)="deleteEcosystem(ecosystem.id)">
+                    <mat-icon>delete</mat-icon>
+                    Eliminar
+                  </button>
+                  <button mat-button (click)="toggleEcosystemStatus(ecosystem)">
+                    <mat-icon>{{ ecosystem.isActive ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    {{ ecosystem.isActive ? 'Ocultar' : 'Mostrar' }}
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>

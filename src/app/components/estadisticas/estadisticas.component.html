@@ -1,0 +1,86 @@
+
+    <h2 mat-dialog-title>
+      <mat-icon>{{ data ? 'edit' : 'add' }}</mat-icon>
+      {{ data ? 'Editar' : 'Agregar' }} Estadística
+    </h2>
+
+    <mat-dialog-content>
+      <form [formGroup]="statsForm" class="stats-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" placeholder="Ej: Especies de Orquídeas">
+            <mat-error *ngIf="statsForm.get('title')?.hasError('required')">
+              El título es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Valor numérico</mat-label>
+            <input matInput type="number" formControlName="value" placeholder="3000">
+            <mat-error *ngIf="statsForm.get('value')?.hasError('required')">
+              El valor es requerido
+            </mat-error>
+            <mat-error *ngIf="statsForm.get('value')?.hasError('min')">
+              El valor debe ser mayor a 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Icono</mat-label>
+            <mat-select formControlName="icon">
+              <mat-option value="terrain">Terreno</mat-option>
+              <mat-option value="local_florist">Flor</mat-option>
+              <mat-option value="pets">Mascotas/Animales</mat-option>
+              <mat-option value="flight">Vuelo/Aves</mat-option>
+              <mat-option value="park">Parque</mat-option>
+              <mat-option value="eco">Ecología</mat-option>
+              <mat-option value="nature">Naturaleza</mat-option>
+              <mat-option value="forest">Bosque</mat-option>
+              <mat-option value="water_drop">Gota de agua</mat-option>
+              <mat-option value="analytics">Analíticas</mat-option>
+            </mat-select>
+            <mat-error *ngIf="statsForm.get('icon')?.hasError('required')">
+              El icono es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" rows="3"
+                      placeholder="Descripción adicional de la estadística..."></textarea>
+            <mat-error *ngIf="statsForm.get('description')?.hasError('required')">
+              La descripción es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox formControlName="isActive">
+            Mostrar en el sitio web
+          </mat-checkbox>
+        </div>
+
+        <div class="icon-preview" *ngIf="statsForm.get('icon')?.value">
+          <h4>Vista previa del icono:</h4>
+          <div class="preview-container">
+            <mat-icon class="preview-icon">{{ statsForm.get('icon')?.value }}</mat-icon>
+            <div class="preview-number">{{ statsForm.get('value')?.value || 0 | number }}</div>
+            <div class="preview-title">{{ statsForm.get('title')?.value || 'Título' }}</div>
+            <div class="preview-description">{{ statsForm.get('description')?.value || 'Descripción' }}</div>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!statsForm.valid">
+        <mat-icon>save</mat-icon>
+        {{ data ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </mat-dialog-actions>

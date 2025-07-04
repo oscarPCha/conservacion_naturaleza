@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span class="logo">🌿 Conservación Natural Perú</span>
+  <div class="spacer"></div>
+  <button mat-button (click)="scrollToSection('inicio')">Inicio</button>
+  <button mat-button (click)="scrollToSection('biodiversidad')">
+    Biodiversidad
+  </button>
+  <button mat-button (click)="scrollToSection('especies')">Especies</button>
+  <button mat-button (click)="scrollToSection('donar')" class="donate-btn">
+    Donar
+  </button>
+  <button mat-raised-button (click)="goToAdmin()" class="admin-btn">
+    <mat-icon>dashboard</mat-icon>
+    <!-- por defecto mat-icon reconoce fuente de icono de: https://fonts.google.com/icons -->
+    Admin
+  </button>
+</mat-toolbar>

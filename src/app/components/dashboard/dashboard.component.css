@@ -1,0 +1,218 @@
+ .dashboard-toolbar {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .back-btn {
+      margin-right: 8px;
+    }
+
+    .toolbar-title {
+      margin-left: 16px;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .dashboard-container {
+      padding-top: 80px;
+      padding: 80px 24px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-header h1 {
+      color: var(--primary-green);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-tabs {
+      margin-top: 2rem;
+    }
+
+    .tab-content {
+      padding: 2rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      color: var(--primary-green);
+      margin: 0;
+    }
+
+    .species-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+
+    .species-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      position: relative;
+    }
+
+    .species-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: white;
+    }
+
+    .status-badge.critico { background: #D32F2F; }
+    .status-badge.peligro { background: #F57C00; }
+    .status-badge.vulnerable { background: #FBC02D; color: #333; }
+    .status-badge.amenazado { background: #689F38; }
+    .status-badge.menor { background: #388E3C; }
+
+    .scientific-name {
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .species-details {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+    }
+
+    .detail-item mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .threats-section h4 {
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .ecosystems-list {
+      display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .ecosystem-card {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .ecosystem-description {
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .ecosystem-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .ecosystem-section h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+
+    mat-chip-set {
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 80px 16px 16px;
+      }
+
+      .species-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }

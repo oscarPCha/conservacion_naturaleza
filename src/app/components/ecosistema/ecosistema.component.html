@@ -1,0 +1,107 @@
+
+    <h2 mat-dialog-title>
+      <mat-icon>{{ data ? 'edit' : 'add' }}</mat-icon>
+      {{ data ? 'Editar' : 'Agregar' }} Ecosistema
+    </h2>
+
+    <mat-dialog-content>
+      <form [formGroup]="ecosystemForm" class="ecosystem-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del ecosistema</mat-label>
+            <input matInput formControlName="name" placeholder="Ej: Amazonía">
+            <mat-error *ngIf="ecosystemForm.get('name')?.hasError('required')">
+              El nombre es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" rows="4"
+                      placeholder="Descripción detallada del ecosistema..."></textarea>
+            <mat-error *ngIf="ecosystemForm.get('description')?.hasError('required')">
+              La descripción es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <h3>Características</h3>
+          <div class="array-container">
+            <div formArrayName="characteristics">
+              <div *ngFor="let char of characteristicsArray.controls; let i = index" class="array-item">
+                <mat-form-field appearance="outline" class="array-input">
+                  <mat-label>Característica {{ i + 1 }}</mat-label>
+                  <input matInput [formControlName]="i" placeholder="Ej: Bosque tropical húmedo">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button" (click)="removeCharacteristic(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <button mat-stroked-button type="button" (click)="addCharacteristic()" class="add-btn">
+              <mat-icon>add</mat-icon>
+              Agregar característica
+            </button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Amenazas</h3>
+          <div class="array-container">
+            <div formArrayName="threats">
+              <div *ngFor="let threat of threatsArray.controls; let i = index" class="array-item">
+                <mat-form-field appearance="outline" class="array-input">
+                  <mat-label>Amenaza {{ i + 1 }}</mat-label>
+                  <input matInput [formControlName]="i" placeholder="Ej: Deforestación">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button" (click)="removeThreat(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <button mat-stroked-button type="button" (click)="addThreat()" class="add-btn">
+              <mat-icon>add</mat-icon>
+              Agregar amenaza
+            </button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Esfuerzos de Conservación</h3>
+          <div class="array-container">
+            <div formArrayName="conservationEfforts">
+              <div *ngFor="let effort of conservationEffortsArray.controls; let i = index" class="array-item">
+                <mat-form-field appearance="outline" class="array-input">
+                  <mat-label>Esfuerzo {{ i + 1 }}</mat-label>
+                  <input matInput [formControlName]="i" placeholder="Ej: Áreas naturales protegidas">
+                </mat-form-field>
+                <button mat-icon-button color="warn" type="button" (click)="removeConservationEffort(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <button mat-stroked-button type="button" (click)="addConservationEffort()" class="add-btn">
+              <mat-icon>add</mat-icon>
+              Agregar esfuerzo
+            </button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox formControlName="isActive">
+            Mostrar en el sitio web
+          </mat-checkbox>
+        </div>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!ecosystemForm.valid">
+        <mat-icon>save</mat-icon>
+        {{ data ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </mat-dialog-actions>
